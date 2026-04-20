@@ -1,0 +1,138 @@
+.dashboard-page{
+  background:
+    radial-gradient(circle at top left, rgba(127,92,255,0.14), transparent 20%),
+    radial-gradient(circle at bottom right, rgba(94,231,255,0.12), transparent 20%),
+    linear-gradient(180deg,#07111f,#0c1830);
+  min-height:100vh;
+}
+
+/* HERO */
+.dashboard-hero{
+  padding-top:150px;
+  padding-bottom:40px;
+}
+
+.dashboard-hero-card{
+  padding:30px;
+  border-radius:26px;
+  background:rgba(255,255,255,0.07);
+  border:1px solid rgba(255,255,255,0.12);
+  backdrop-filter:blur(16px);
+}
+
+.dashboard-badge{
+  display:inline-block;
+  padding:8px 14px;
+  border-radius:999px;
+  background:rgba(94,231,255,0.14);
+  color:var(--primary);
+  margin-bottom:12px;
+}
+
+.dashboard-subtext{
+  color:rgba(255,255,255,0.75);
+}
+
+/* STATS */
+.dashboard-stats{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:20px;
+  margin-bottom:30px;
+}
+
+.stat-box{
+  padding:22px;
+  border-radius:22px;
+  background:rgba(255,255,255,0.07);
+  border:1px solid rgba(255,255,255,0.1);
+  text-align:center;
+  transition:0.3s;
+}
+
+.stat-box:hover{
+  transform:translateY(-6px);
+}
+
+.stat-box h3{
+  font-size:2.2rem;
+  color:var(--primary);
+}
+
+/* FILTER */
+.dashboard-filter{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-bottom:24px;
+}
+
+.dashboard-filter input,
+.dashboard-filter select{
+  padding:14px 16px;
+  border-radius:14px;
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.1);
+  color:#fff;
+}
+
+/* BOOKINGS */
+.booking-list{
+  display:grid;
+  gap:20px;
+}
+
+.booking-card{
+  padding:24px;
+  border-radius:24px;
+  background:rgba(255,255,255,0.07);
+  border:1px solid rgba(255,255,255,0.1);
+  backdrop-filter:blur(14px);
+  transition:0.3s;
+}
+
+.booking-card:hover{
+  transform:translateY(-6px);
+}
+
+.booking-top{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:12px;
+}
+
+/* STATUS */
+.status{
+  padding:6px 12px;
+  border-radius:999px;
+  font-size:0.85rem;
+}
+
+.status.confirmed{
+  background:rgba(0,209,143,0.18);
+  color:#8dffca;
+}
+
+.status.cancelled{
+  background:rgba(255,100,100,0.18);
+  color:#ffb0b0;
+}
+
+/* ACTIONS */
+.booking-actions{
+  margin-top:14px;
+}
+
+/* EMPTY */
+.no-booking{
+  text-align:center;
+  padding:40px;
+  color:rgba(255,255,255,0.6);
+}
+
+/* MOBILE */
+@media (max-width: 768px){
+  .dashboard-filter{
+    flex-direction:column;
+  }
+}

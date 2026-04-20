@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Booking Confirmed | TravelSmart</title>
+
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/pages/payment.css" />
+</head>
+<body class="payment-page">
+
+  <section class="confirmation-section">
+    <div class="container">
+      <div class="confirmation-card">
+        <div class="success-icon">✓</div>
+        <h1>Booking Confirmed</h1>
+        <p>Your trip has been successfully booked.</p>
+
+        <div id="confirmationDetails" class="confirmation-details"></div>
+
+        <div class="confirmation-actions">
+          <button id="dashboardBtn" class="btn btn-primary">
+  Go to Dashboard
+</button>
+          <a href="index.html" class="btn btn-outline">Back to Home</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="js/storage.js"></script>
+  <script src="js/confirmation.js"></script>
+</body>
+</html>

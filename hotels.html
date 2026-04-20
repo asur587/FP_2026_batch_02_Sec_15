@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hotels | TravelSmart</title>
+
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/animations.css" />
+  <link rel="stylesheet" href="../css/pages/booking.css" />
+</head>
+<body class="booking-page">
+
+  <header class="navbar" id="navbar">
+  <div class="container nav-content">
+    <a href="../index.html" class="logo logo-wrap">
+      <span class="logo-icon">✈</span>
+      <span class="logo-text">TravelSmart</span>
+    </a>
+
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav class="main-nav" id="mainNav">
+      <ul class="nav-links">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="flights.html" class="nav-link">Flights</a></li>
+        <li><a href="trains.html" class="nav-link">Trains</a></li>
+        <li><a href="buses.html" class="nav-link">Buses</a></li>
+        <li><a href="hotels.html" class="nav-link active">Hotels</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="../login.html" class="btn btn-outline nav-btn">Login</a>
+        <a href="../signup.html" class="btn btn-primary nav-btn">Sign Up</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+  <section class="booking-hero">
+    <div class="container booking-hero-content">
+      <h1>Find hotels, rooms and premium stays</h1>
+      <p>
+        Browse hotel cards with ratings, room count, amenities, location and nightly price
+        in a long-form premium booking layout.
+      </p>
+
+      <div class="booking-filter-bar">
+        <input type="text" id="hotelCity" placeholder="City" />
+        <input type="date" id="checkInDate" />
+        <input type="date" id="checkOutDate" />
+        <select id="hotelPriceRange">
+          <option value="all">All Prices</option>
+          <option value="budget">Budget</option>
+          <option value="mid">Mid Range</option>
+          <option value="premium">Premium</option>
+        </select>
+        <button class="btn btn-primary" id="filterHotelsBtn">Search Hotels</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="results-section">
+    <div class="container">
+      <div class="results-topbar">
+        <div>
+          <h2>Available Hotels</h2>
+          <p>See sample stays, amenities, ratings and remaining room inventory.</p>
+        </div>
+      </div>
+
+      <div class="results-layout" id="hotelsResults"></div>
+
+      <div class="booking-info-grid">
+        <div class="info-box">
+          <h3>Amenity blocks</h3>
+          <p>Each card can later expand into rooms, photos, policies and payment types.</p>
+        </div>
+        <div class="info-box">
+          <h3>Pricing tiers</h3>
+          <p>Budget, mid-range and premium filtering is already structured for expansion.</p>
+        </div>
+        <div class="info-box">
+          <h3>Stay booking flow</h3>
+          <p>Upcoming phases can add guest count, room type and booking confirmation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="../js/navbar.js"></script>
+<script src="../data/sample-data.js"></script>
+<script src="../js/bookings/hotels.js"></script>
+<script src="../js/storage.js"></script>
+<script src="../js/booking-actions.js"></script>
+<script src="../data/sample-data.js"></script>
+<script src="../js/bookings/hotels.js"></script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+@keyframes floatY{
+  0%,100%{ transform:translateY(0px); }
+  50%{ transform:translateY(-15px); }
+}
+
+@keyframes glowPulse{
+  0%,100%{ box-shadow:0 0 0 rgba(94,231,255,0.2); }
+  50%{ box-shadow:0 0 35px rgba(94,231,255,0.35); }
+}
+
+@keyframes loaderFly{
+  0%{ transform:translateX(-20px); opacity:0; }
+  50%{ transform:translateX(10px); opacity:1; }
+  100%{ transform:translateX(40px); opacity:0; }
+}
+
+@keyframes driftX{
+  0%{ transform:translateX(0); }
+  100%{ transform:translateX(30px); }
+}
+
+@keyframes pulseSoft{
+  0%,100%{ transform:scale(1); opacity:1; }
+  50%{ transform:scale(1.04); opacity:0.88; }
+}
+
+.reveal{
+  opacity:0;
+  transform:translateY(50px);
+  transition:all 0.8s ease;
+}
+
+.reveal.active{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.loader-plane{
+  font-size:2rem;
+  animation:loaderFly 1.2s linear infinite;
+}
+
+.page-loader{
+  position:fixed;
+  inset:0;
+  z-index:2000;
+  background:#07111f;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:0.6s ease;
+}
+
+.page-loader.hide{
+  opacity:0;
+  visibility:hidden;
+}
+
+.offer-card:hover{
+  animation:glowPulse 1.2s infinite;
+}
+
+.floating-card{
+  animation:floatY 4s ease-in-out infinite;
+}
+
+.scroll-progress{
+  position:fixed;
+  top:0;
+  left:0;
+  height:4px;
+  width:0%;
+  z-index:2001;
+  background:linear-gradient(135deg,var(--primary),var(--secondary));
+  box-shadow:0 0 20px rgba(94,231,255,0.3);
+}

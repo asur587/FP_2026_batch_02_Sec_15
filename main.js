@@ -1,0 +1,1087 @@
+document.addEventListener("DOMContentLoaded", () => {
+  setupTabs();
+  setupKeyboardShortcuts();
+  setupNavbarScroll();
+  setupScrollProgress();
+  setupActiveNavLinks();
+  setupCounterAnimation();
+  setupMobileNavbar();
+  setupNavbarScroll();
+});
+
+function setupMobileNavbar() {
+  const navToggle = document.getElementById("navToggle");
+  const mainNav = document.getElementById("mainNav");
+
+  if (!navToggle || !mainNav) return;
+
+  navToggle.addEventListener("click", () => {
+    navToggle.classList.toggle("active");
+    mainNav.classList.toggle("show");
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!mainNav.contains(e.target) && !navToggle.contains(e.target)) {
+      mainNav.classList.remove("show");
+      navToggle.classList.remove("active");
+    }
+  });
+}
+
+function setupNavbarScroll() {
+  const navbar = document.getElementById("navbar");
+  if (!navbar) return;
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 30) {
+      navbar.classList.add("scrolled");
+    } else {
+      navbar.classList.remove("scrolled");
+    }
+  });
+}
+
+function setupMobileNavbar() {
+  const navToggle = document.getElementById("navToggle");
+  const mainNav = document.getElementById("mainNav");
+
+  if (!navToggle || !mainNav) return;
+
+  navToggle.addEventListener("click", () => {
+    navToggle.classList.toggle("active");
+    mainNav.classList.toggle("show");
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!mainNav.contains(e.target) && !navToggle.contains(e.target)) {
+      mainNav.classList.remove("show");
+      navToggle.classList.remove("active");
+    }
+  });
+
+  const navLinks = mainNav.querySelectorAll("a");
+  navLinks.forEach(link => {
+    link.addEventListener("click", () => {
+      mainNav.classList.remove("show");
+      navToggle.classList.remove("active");
+    });
+  });
+}
+
+function setupTabs() {
+  const tabButtons = document.querySelectorAll(".tab-btn");
+  const tabPanels = document.querySelectorAll(".tab-panel");
+
+  tabButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      const tab = button.dataset.tab;
+
+      tabButtons.forEach(btn => btn.classList.remove("active"));
+      tabPanels.forEach(panel => panel.classList.remove("active"));
+
+      button.classList.add("active");
+      const targetPanel = document.getElementById(tab);
+      if (targetPanel) targetPanel.classList.add("active");
+    });
+  });
+}
+
+function setupKeyboardShortcuts() {
+  document.addEventListener("keydown", (e) => {
+    const activeElement = document.activeElement;
+    const isTyping =
+      activeElement.tagName === "INPUT" ||
+      activeElement.tagName === "TEXTAREA" ||
+      activeElement.tagName === "SELECT";
+
+    if (isTyping) return;
+
+    const keyMap = {
+      "1": "flights",
+      "2": "trains",
+      "3": "buses",
+      "4": "hotels"
+    };
+
+    if (keyMap[e.key]) {
+      const targetBtn = document.querySelector(`[data-tab="${keyMap[e.key]}"]`);
+      if (targetBtn) targetBtn.click();
+    }
+  });
+}
+
+function setupNavbarScroll() {
+  const navbar = document.getElementById("navbar");
+
+  window.addEventListener("scroll", () => {
+    if (!navbar) return;
+
+    if (window.scrollY > 50) {
+      navbar.classList.add("scrolled");
+    } else {
+      navbar.classList.remove("scrolled");
+    }
+  });
+}
+
+function setupScrollProgress() {
+  const progressBar = document.getElementById("scrollProgress");
+
+  window.addEventListener("scroll", () => {
+    if (!progressBar) return;
+
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = (scrollTop / docHeight) * 100;
+
+    progressBar.style.width = `${progress}%`;
+  });
+}
+
+function setupActiveNavLinks() {
+  const sections = document.querySelectorAll("section[id]");
+  const navLinks = document.querySelectorAll(".nav-link");
+
+  function updateActiveLink() {
+    let current = "";
+
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 140;
+      const sectionHeight = section.offsetHeight;
+
+      if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+        current = section.getAttribute("id");
+      }
+    });
+
+    navLinks.forEach(link => {
+      link.classList.remove("active");
+      const href = link.getAttribute("href");
+      if (href === `#${current}`) {
+        link.classList.add("active");
+      }
+    });
+  }
+
+  window.addEventListener("scroll", updateActiveLink);
+  updateActiveLink();
+}
+
+function setupCounterAnimation() {
+  const counters = document.querySelectorAll(".stat-card h3");
+  let started = false;
+
+  function runCounters() {
+    const statsSection = document.querySelector(".stats-section");
+    if (!statsSection || started) return;
+
+    const rect = statsSection.getBoundingClientRect();
+
+    if (rect.top < window.innerHeight - 100) {
+      started = true;
+
+      counters.forEach(counter => {
+        const target = +counter.dataset.target;
+        let count = 0;
+        const increment = Math.max(1, Math.ceil(target / 60));
+
+        const timer = setInterval(() => {
+          count += increment;
+
+          if (count >= target) {
+            counter.textContent = target;
+            clearInterval(timer);
+          } else {
+            counter.textContent = count;
+          }
+        }, 25);
+      });
+    }
+  }
+
+  window.addEventListener("scroll", runCounters);
+  runCounters();
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TravelSmart | Parallax Travel Booking</title>
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/pages/home.css" />
+  <style>
+  /* INDEX-ONLY NAVBAR FIX */
+  #navbar{
+    position: fixed;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(1280px, calc(100% - 28px));
+    z-index: 5000;
+    border-radius: 22px;
+    background: rgba(8, 18, 36, 0.78);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255,255,255,0.10);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.28);
+    transition: all 0.3s ease;
+  }
+
+  #navbar.scrolled{
+    top: 8px;
+    background: rgba(8, 18, 36, 0.92);
+  }
+
+  #navbar .nav-content{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 78px;
+    gap: 20px;
+    padding: 0 20px;
+  }
+
+  #navbar .logo-wrap{
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  #navbar .logo-icon{
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(94,231,255,0.18), rgba(127,92,255,0.22));
+    border: 1px solid rgba(255,255,255,0.12);
+    color: var(--primary);
+  }
+
+  #navbar .logo-text{
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #fff;
+  }
+
+  #navbar .main-nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    flex: 1;
+  }
+
+  #navbar .nav-links{
+  display:flex;
+  align-items:center;
+  gap:4px;
+  flex-wrap:nowrap;
+}
+
+#navbar .nav-link{
+  padding:8px 10px;
+  font-size:0.95rem;
+}
+
+#navbar .nav-content{
+  gap:12px;
+  padding:0 14px;
+}
+
+#navbar .nav-actions{
+  gap:8px;
+}
+
+#navbar .nav-btn{
+  min-width:auto;
+  padding:10px 16px;
+  font-size:0.95rem;
+}
+
+  #navbar .nav-links li{
+    list-style: none;
+  }
+
+  #navbar .nav-link{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 14px;
+    border-radius: 999px;
+    text-decoration: none;
+    color: rgba(255,255,255,0.84);
+    font-weight: 600;
+    transition: all 0.25s ease;
+  }
+
+  #navbar .nav-link:hover{
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+    transform: translateY(-1px);
+  }
+
+  #navbar .nav-link.active{
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: #07111f;
+    font-weight: 800;
+  }
+
+  #navbar .nav-actions{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
+  }
+
+  #navbar .nav-btn{
+    min-width: 105px;
+  }
+
+  #navbar .nav-toggle{
+    display: none;
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.10);
+    cursor: pointer;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  #navbar .nav-toggle span{
+    width: 22px;
+    height: 2px;
+    background: #fff;
+    border-radius: 999px;
+    display: block;
+  }
+
+  /* keep hero below floating navbar */
+  .hero{
+    padding-top: 140px;
+  }
+
+  @media (max-width: 1080px){
+    #navbar .nav-toggle{
+      display: flex;
+    }
+
+    #navbar .main-nav{
+      position: absolute;
+      top: calc(100% + 10px);
+      left: 0;
+      right: 0;
+      display: none;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 16px;
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(8,18,36,0.96);
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.3);
+    }
+
+    #navbar .main-nav.show{
+      display: flex;
+    }
+
+    #navbar .nav-links{
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    #navbar .nav-link{
+      width: 100%;
+      justify-content: flex-start;
+      padding: 14px 16px;
+    }
+
+    #navbar .nav-actions{
+      flex-direction: column;
+      width: 100%;
+      margin-left: 0;
+    }
+
+    #navbar .nav-actions .btn{
+      width: 100%;
+    }
+  }
+</style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+</head>
+<body>
+
+  <!-- SCROLL PROGRESS -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- PAGE LOADER -->
+  <div class="page-loader" id="pageLoader">
+    <div class="loader-plane">✈</div>
+  </div>
+
+  <!-- NAVBAR -->
+  <header class="navbar" id="navbar">
+  <div class="container nav-content">
+    <a href="index.html" class="logo-wrap">
+      <span class="logo-icon">✈</span>
+      <span class="logo-text">TravelSmart</span>
+    </a>
+
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle navigation">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav class="main-nav" id="mainNav">
+      <ul class="nav-links">
+        <li><a href="#home" class="nav-link active">Home</a></li>
+        <li><a href="#offers" class="nav-link">Offers</a></li>
+        <li><a href="#availability" class="nav-link">Availability</a></li>
+        <li><a href="#discounts" class="nav-link">Discounts</a></li>
+        <li><a href="#planner" class="nav-link">Planner</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="pages/flights.html" class="nav-link">Flights</a></li>
+        <li><a href="pages/trains.html" class="nav-link">Trains</a></li>
+        <li><a href="pages/buses.html" class="nav-link">Buses</a></li>
+        <li><a href="pages/hotels.html" class="nav-link">Hotels</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="login.html" class="btn btn-outline nav-btn">Login</a>
+        <a href="signup.html" class="btn btn-primary nav-btn">Sign Up</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+  <!-- HERO -->
+  <section class="hero parallax-section" id="home">
+  <div class="parallax-layer sky"></div>
+  <div class="parallax-layer stars-layer"></div>
+  <div class="parallax-layer clouds"></div>
+  <div class="parallax-layer mountains"></div>
+  <div class="parallax-layer travel-icons"></div>
+  <div class="parallax-layer foreground"></div>
+
+  <div class="container hero-layout">
+    <div class="hero-content">
+      <p class="hero-tag">Smart travel booking for flights, trains, buses and hotels</p>
+      <h1>Plan, compare and book every journey in one immersive platform</h1>
+      <p class="hero-subtext">
+        Discover routes, compare prices, explore destinations, unlock offers,
+        and manage bookings through an interactive parallax travel experience.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="#booking-tabs" class="btn btn-primary">Start Booking</a>
+        <a href="#offers" class="btn btn-glass">Explore Offers</a>
+      </div>
+
+      <div class="hero-mini-stats">
+        <div class="mini-stat">
+          <i class='bx bx-world'></i>
+          <span>120+ routes</span>
+        </div>
+        <div class="mini-stat">
+          <i class='bx bx-wallet'></i>
+          <span>Best fare deals</span>
+        </div>
+        <div class="mini-stat">
+          <i class='bx bx-time-five'></i>
+          <span>Fast booking flow</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-visual-card main-visual-card">
+        <div class="visual-top">
+          <span class="visual-badge">Trending Route</span>
+          <i class='bx bxs-plane-alt'></i>
+        </div>
+        <h3>Vijayawada → Bangalore</h3>
+        <p>Direct flight • 1h 25m • from ₹5,199</p>
+        <div class="visual-route">
+          <span>VGA</span>
+          <div class="route-dash"></div>
+          <span>BLR</span>
+        </div>
+      </div>
+
+      <div class="hero-visual-card small-card card-a">
+        <i class='bx bxs-bus'></i>
+        <div>
+          <strong>AC Sleeper</strong>
+          <p>Hyderabad → Bangalore</p>
+        </div>
+      </div>
+
+      <div class="hero-visual-card small-card card-b">
+        <i class='bx bxs-hotel'></i>
+        <div>
+          <strong>Luxury Stay</strong>
+          <p>City-center hotels</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- BOOKING TABS -->
+  <section class="booking-tabs-section" id="booking-tabs">
+    <div class="container">
+      <div class="section-heading reveal">
+        <h2>Choose your travel mode</h2>
+        <p>Switch between categories with keyboard shortcuts 1, 2, 3 and 4.</p>
+      </div>
+
+      <div class="booking-tabs reveal">
+        <button class="tab-btn active" data-tab="flights">Flights</button>
+        <button class="tab-btn" data-tab="trains">Trains</button>
+        <button class="tab-btn" data-tab="buses">Buses</button>
+        <button class="tab-btn" data-tab="hotels">Hotels</button>
+      </div>
+
+      <div class="tab-panels">
+        <div class="tab-panel active reveal" id="flights">
+          <div class="search-card">
+            <input type="text" placeholder="From" />
+            <input type="text" placeholder="To" />
+            <input type="date" />
+            <select>
+              <option>Economy</option>
+              <option>Business</option>
+              <option>First Class</option>
+            </select>
+            <a href="pages/flights.html" class="btn btn-primary">Search Flights</a>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="trains">
+          <div class="search-card">
+            <input type="text" placeholder="From" />
+            <input type="text" placeholder="To" />
+            <input type="date" />
+            <select>
+              <option>Sleeper</option>
+              <option>3A</option>
+              <option>2A</option>
+              <option>1A</option>
+            </select>
+            <a href="pages/trains.html" class="btn btn-primary">Search Trains</a>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="buses">
+          <div class="search-card">
+            <input type="text" placeholder="From" />
+            <input type="text" placeholder="To" />
+            <input type="date" />
+            <select>
+              <option>Seater</option>
+              <option>Sleeper</option>
+              <option>AC</option>
+            </select>
+            <a href="pages/buses.html" class="btn btn-primary">Search Buses</a>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="hotels">
+          <div class="search-card">
+            <input type="text" placeholder="Destination" />
+            <input type="date" />
+            <input type="date" />
+            <select>
+              <option>1 Guest</option>
+              <option>2 Guests</option>
+              <option>Family</option>
+            </select>
+            <a href="pages/hotels.html" class="btn btn-primary">Search Hotels</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!--service section-->
+  <section class="services-section">
+  <div class="container">
+    <div class="section-heading reveal">
+      <h2>Everything your trip needs</h2>
+      <p>From transport to stays, compare and manage every part of your journey in one place.</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card reveal tilt-card">
+        <div class="service-icon"><i class='bx bxs-plane-alt'></i></div>
+        <h3>Flights</h3>
+        <p>Search domestic and long-distance flight options with quick fare previews and route insights.</p>
+      </div>
+
+      <div class="service-card reveal tilt-card">
+        <div class="service-icon"><i class='bx bxs-train'></i></div>
+        <h3>Trains</h3>
+        <p>Check routes, class types, availability and timing combinations for smoother rail travel.</p>
+      </div>
+
+      <div class="service-card reveal tilt-card">
+        <div class="service-icon"><i class='bx bxs-bus'></i></div>
+        <h3>Buses</h3>
+        <p>Explore seater and sleeper buses with pickup points, availability and budget-friendly pricing.</p>
+      </div>
+
+      <div class="service-card reveal tilt-card">
+        <div class="service-icon"><i class='bx bxs-hotel'></i></div>
+        <h3>Hotels</h3>
+        <p>Book rooms, compare amenities and discover premium or budget stays for every destination.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- OFFERS -->
+  <section class="offers-section" id="offers">
+    <div class="container">
+      <div class="section-heading reveal">
+        <h2>Trending offers</h2>
+        <p>Hand-picked promotional cards inspired by modern travel booking platforms.</p>
+      </div>
+
+      <div class="offer-grid">
+        <div class="offer-card reveal tilt-card">
+          <span class="offer-badge">FLIGHT DEAL</span>
+          <h3>Up to 30% off</h3>
+          <p>Save on domestic flights with partner airlines and flexible timing options.</p>
+        </div>
+
+        <div class="offer-card reveal tilt-card">
+          <span class="offer-badge">HOTEL DEAL</span>
+          <h3>Flat ₹1200 off</h3>
+          <p>Book city-center and luxury stays with curated discounts and late checkout.</p>
+        </div>
+
+        <div class="offer-card reveal tilt-card">
+          <span class="offer-badge">BUS DEAL</span>
+          <h3>Weekend cashback</h3>
+          <p>Extra value on sleeper and AC buses across intercity weekend routes.</p>
+        </div>
+
+        <div class="offer-card reveal tilt-card">
+          <span class="offer-badge">TRAIN DEAL</span>
+          <h3>Smart route suggestions</h3>
+          <p>Explore better timing combinations and optimize multi-stop journeys.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="destinations-section">
+  <div class="container">
+    <div class="section-heading reveal">
+      <h2>Popular travel inspiration</h2>
+      <p>Explore destinations, route ideas and stay plans for your next trip.</p>
+    </div>
+
+    <div class="destination-grid">
+      <div class="destination-card reveal tilt-card destination-one">
+        <div class="destination-overlay">
+          <span class="destination-tag">City Escape</span>
+          <h3>Bangalore</h3>
+          <p>Flights, buses, premium stays and business travel options</p>
+        </div>
+      </div>
+
+      <div class="destination-card reveal tilt-card destination-two">
+        <div class="destination-overlay">
+          <span class="destination-tag">Culture + Coast</span>
+          <h3>Chennai</h3>
+          <p>Rail routes, sea-view stays and weekend escapes</p>
+        </div>
+      </div>
+
+      <div class="destination-card reveal tilt-card destination-three">
+        <div class="destination-overlay">
+          <span class="destination-tag">Fast Getaway</span>
+          <h3>Hyderabad</h3>
+          <p>Night buses, express trains and city-center hotels</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- AVAILABILITY -->
+  <section class="availability-section" id="availability">
+    <div class="container">
+      <div class="section-heading reveal">
+        <h2>Live-style availability preview</h2>
+        <p>Showcasing sample schedules, seats, fares and hotel room availability.</p>
+      </div>
+
+      <div class="availability-grid">
+        <article class="availability-card reveal tilt-card">
+          <div class="availability-top">
+            <div>
+              <h3>IndiGo 6E-742</h3>
+              <p>Vijayawada → Chennai</p>
+            </div>
+            <span class="status available">Available</span>
+          </div>
+          <div class="availability-mid">
+            <strong>06:45 AM</strong>
+            <span>2h 05m</span>
+            <strong>08:50 AM</strong>
+          </div>
+          <div class="availability-bottom">
+            <span>12 seats left</span>
+            <span>₹4,299</span>
+          </div>
+        </article>
+
+        <article class="availability-card reveal tilt-card">
+          <div class="availability-top">
+            <div>
+              <h3>AP Express</h3>
+              <p>Guntur → Hyderabad</p>
+            </div>
+            <span class="status limited">RAC</span>
+          </div>
+          <div class="availability-mid">
+            <strong>09:10 PM</strong>
+            <span>6h 40m</span>
+            <strong>03:50 AM</strong>
+          </div>
+          <div class="availability-bottom">
+            <span>3A / Sleeper</span>
+            <span>₹890</span>
+          </div>
+        </article>
+
+        <article class="availability-card reveal tilt-card">
+          <div class="availability-top">
+            <div>
+              <h3>Orange Travels</h3>
+              <p>Hyderabad → Bangalore</p>
+            </div>
+            <span class="status available">Seats Open</span>
+          </div>
+          <div class="availability-mid">
+            <strong>10:00 PM</strong>
+            <span>8h 30m</span>
+            <strong>06:30 AM</strong>
+          </div>
+          <div class="availability-bottom">
+            <span>16 sleeper seats</span>
+            <span>₹1,450</span>
+          </div>
+        </article>
+
+        <article class="availability-card reveal tilt-card">
+          <div class="availability-top">
+            <div>
+              <h3>Skyline Residency</h3>
+              <p>Bangalore City Center</p>
+            </div>
+            <span class="status available">Rooms Available</span>
+          </div>
+          <div class="availability-mid hotel-mid">
+            <strong>4.5 ★</strong>
+            <span>Breakfast Included</span>
+            <strong>Wi-Fi</strong>
+          </div>
+          <div class="availability-bottom">
+            <span>5 deluxe rooms</span>
+            <span>₹3,799/night</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- DISCOUNTS -->
+  <section class="discounts-section" id="discounts">
+    <div class="container">
+      <div class="discounts-layout">
+        <div class="discount-banner reveal tilt-card">
+          <p class="mini-label">Limited period</p>
+          <h2>Use code <span>TRAVEL30</span> for extra savings</h2>
+          <p>
+            Enjoy combined discounts across selected buses, flights and hotels
+            when booking your journey bundle together.
+          </p>
+          <a href="pages/offers.html" class="btn btn-primary">Unlock Deals</a>
+        </div>
+
+        <div class="discount-side">
+          <div class="mini-discount-card reveal tilt-card">
+            <h3>Student Saver</h3>
+            <p>Special sample discounts for budget travelers and students.</p>
+          </div>
+          <div class="mini-discount-card reveal tilt-card">
+            <h3>Family Package</h3>
+            <p>Hotel + transfer + return booking combos for group trips.</p>
+          </div>
+          <div class="mini-discount-card reveal tilt-card">
+            <h3>Last Minute</h3>
+            <p>Grab quick departures and short-stay offers before they close.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLANNER -->
+  <section class="planner-section" id="planner">
+    <div class="container">
+      <div class="section-heading reveal">
+        <h2>Smart trip planner</h2>
+        <p>Create bundled plans with transport, stays, timing and budget ideas.</p>
+      </div>
+
+      <div class="planner-layout">
+        <div class="planner-card reveal tilt-card">
+          <h3>Weekend Escape</h3>
+          <p>Guntur → Hyderabad → Hotel Stay → Return Bus</p>
+          <span class="plan-price">Approx ₹5,600</span>
+        </div>
+
+        <div class="planner-card reveal tilt-card">
+          <h3>Business Express</h3>
+          <p>Vijayawada → Bangalore Flight + Airport Hotel</p>
+          <span class="plan-price">Approx ₹8,900</span>
+        </div>
+
+        <div class="planner-card reveal tilt-card">
+          <h3>Budget Explorer</h3>
+          <p>Train + Bus + Low-cost Hotel bundled for maximum savings</p>
+          <span class="plan-price">Approx ₹3,900</span>
+        </div>
+
+        <div class="planner-card reveal tilt-card">
+          <h3>Premium Vacation</h3>
+          <p>Round trip flight + luxury stay + airport pickup flow</p>
+          <span class="plan-price">Approx ₹17,400</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="section-heading reveal">
+        <h2>Why users stay engaged</h2>
+        <p>Interactive sections and premium motion make the platform feel alive.</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card reveal tilt-card">
+          <h3 data-target="120">0</h3>
+          <p>Sample daily departures</p>
+        </div>
+        <div class="stat-card reveal tilt-card">
+          <h3 data-target="85">0</h3>
+          <p>Offer combinations</p>
+        </div>
+        <div class="stat-card reveal tilt-card">
+          <h3 data-target="40">0</h3>
+          <p>Discount coverage %</p>
+        </div>
+        <div class="stat-card reveal tilt-card">
+          <h3 data-target="99">0</h3>
+          <p>Smooth booking flow score</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="why-us-section">
+  <div class="container">
+    <div class="section-heading reveal">
+      <h2>Why travelers choose TravelSmart</h2>
+      <p>A booking experience designed for clarity, speed, discovery and immersive interaction.</p>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-card reveal tilt-card">
+        <i class='bx bx-search-alt'></i>
+        <h3>Easy comparison</h3>
+        <p>Compare fares, schedules, rooms and routes from one interface.</p>
+      </div>
+
+      <div class="why-card reveal tilt-card">
+        <i class='bx bx-git-compare'></i>
+        <h3>One integrated flow</h3>
+        <p>Move from search to seat selection, payment and confirmation smoothly.</p>
+      </div>
+
+      <div class="why-card reveal tilt-card">
+        <i class='bx bx-shield-quarter'></i>
+        <h3>Reliable trip view</h3>
+        <p>Access booking summaries, details and route breakdowns clearly.</p>
+      </div>
+
+      <div class="why-card reveal tilt-card">
+        <i class='bx bx-mouse-alt'></i>
+        <h3>Interactive design</h3>
+        <p>Enjoy parallax visuals, motion feedback and engaging travel discovery.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials-section">
+    <div class="container">
+      <div class="section-heading reveal">
+        <h2>Traveler impressions</h2>
+        <p>Sample reviews to make the homepage feel more complete and real.</p>
+      </div>
+
+      <div class="testimonial-grid">
+        <div class="testimonial-card reveal tilt-card">
+          <p>
+            “The parallax layout feels premium and the booking tabs are super smooth.
+            It actually feels fun to explore routes.”
+          </p>
+          <h4>Riya Sharma</h4>
+          <span>Weekend Traveler</span>
+        </div>
+
+        <div class="testimonial-card reveal tilt-card">
+          <p>
+            “The trip planner section makes multi-step travel look easy. It’s modern,
+            clean and visually engaging.”
+          </p>
+          <h4>Arjun Mehta</h4>
+          <span>Business Commuter</span>
+        </div>
+
+        <div class="testimonial-card reveal tilt-card">
+          <p>
+            “I like how offers, schedules, hotels and transport are shown together.
+            The interactions make the site feel dynamic.”
+          </p>
+          <h4>Sana Verma</h4>
+          <span>Frequent Explorer</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about-section" id="about">
+    <div class="container">
+      <div class="about-layout">
+        <div class="about-text reveal">
+          <div class="section-heading left-align">
+            <h2>Why TravelSmart?</h2>
+            <p>
+              TravelSmart is designed as a visually rich travel-booking concept
+              that brings buses, trains, flights and hotels together in one
+              interactive long-scrolling interface.
+            </p>
+          </div>
+
+          <div class="about-points">
+            <div class="about-point tilt-card">
+              <h3>Unified travel flow</h3>
+              <p>Search and compare all major travel categories in one ecosystem.</p>
+            </div>
+            <div class="about-point tilt-card">
+              <h3>Interactive UI</h3>
+              <p>Parallax, reveal motion, hover tilt, keyboard shortcuts and live effects.</p>
+            </div>
+            <div class="about-point tilt-card">
+              <h3>Booking-ready logic</h3>
+              <p>Structured to connect signup, booking, seat selection and payment flow.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-showcase reveal tilt-card">
+          <div class="showcase-panel">
+            <span>Routes</span>
+            <strong>Flights · Trains · Buses</strong>
+          </div>
+          <div class="showcase-panel">
+            <span>Stay Finder</span>
+            <strong>Hotels · Rooms · Deals</strong>
+          </div>
+          <div class="showcase-panel">
+            <span>Planner</span>
+            <strong>Bundles · Budget · Timing</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div>
+        <h3>TravelSmart</h3>
+        <p>
+          A premium parallax travel-booking concept for flights, trains, buses and hotels.
+        </p>
+      </div>
+
+      <div>
+        <h4>Bookings</h4>
+        <ul>
+          <li><a href="pages/flights.html">Flights</a></li>
+          <li><a href="pages/trains.html">Trains</a></li>
+          <li><a href="pages/buses.html">Buses</a></li>
+          <li><a href="pages/hotels.html">Hotels</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="#offers">Offers</a></li>
+          <li><a href="#availability">Availability</a></li>
+          <li><a href="#planner">Trip Planner</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Account</h4>
+        <ul>
+          <li><a href="login.html">Login</a></li>
+          <li><a href="signup.html">Sign Up</a></li>
+          <li><a href="dashboard.html">Dashboard</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 TravelSmart. Designed for immersive travel booking experiences.</p>
+    </div>
+  </footer>
+  <script src="js/navbar.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/transition.js"></script>
+</body>
+</html>

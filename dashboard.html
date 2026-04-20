@@ -1,0 +1,58 @@
+<body class="dashboard-page">
+
+<header class="navbar">
+  <div class="container nav-content">
+    <h2>TravelSmart Dashboard</h2>
+    <button id="logoutBtn" class="btn btn-outline">Logout</button>
+  </div>
+</header>
+
+<section class="dashboard-hero">
+  <div class="container">
+    <h1 id="welcomeText">Welcome</h1>
+    <p>Manage your bookings, tickets and travel plans</p>
+  </div>
+</section>
+
+<section class="dashboard-section">
+  <div class="container">
+
+    <!-- STATS -->
+    <div class="dashboard-stats">
+      <div class="stat-box">
+        <h3 id="totalBookings">0</h3>
+        <p>Total Bookings</p>
+      </div>
+      <div class="stat-box">
+        <h3 id="confirmedBookings">0</h3>
+        <p>Confirmed</p>
+      </div>
+      <div class="stat-box">
+        <h3 id="cancelledBookings">0</h3>
+        <p>Cancelled</p>
+      </div>
+    </div>
+
+    <!-- FILTER -->
+    <div class="dashboard-filter">
+      <input type="text" id="searchInput" placeholder="Search bookings...">
+      <select id="filterType">
+        <option value="all">All</option>
+        <option value="Flight">Flights</option>
+        <option value="Train">Trains</option>
+        <option value="Bus">Buses</option>
+        <option value="Hotel">Hotels</option>
+      </select>
+    </div>
+
+    <!-- BOOKINGS -->
+    <div id="bookingList" class="booking-list"></div>
+
+  </div>
+</section>
+
+<script src="js/storage.js"></script>
+<script src="js/core/ui.js"></script>
+<script src="js/core/dashboard.js"></script>
+
+</body>

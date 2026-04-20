@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payment | TravelSmart</title>
+
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/pages/payment.css" />
+</head>
+<body class="payment-page">
+
+  <header class="navbar">
+    <div class="container nav-content">
+      <div class="logo">TravelSmart</div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="dashboard.html">Dashboard</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="payment-hero">
+    <div class="container">
+      <h1>Complete your booking</h1>
+      <p>Review trip details, enter passenger information and proceed to payment.</p>
+    </div>
+  </section>
+
+  <section class="payment-section">
+    <div class="container payment-layout">
+      <div class="payment-left">
+        <div class="payment-card">
+          <h2>Passenger Details</h2>
+
+          <form id="paymentForm">
+            <div class="form-grid">
+              <div class="input-group">
+                <label for="passengerName">Full Name</label>
+                <input type="text" id="passengerName" placeholder="Enter full name" required />
+              </div>
+
+              <div class="input-group">
+                <label for="passengerAge">Age</label>
+                <input type="number" id="passengerAge" placeholder="Enter age" required />
+              </div>
+
+              <div class="input-group">
+                <label for="passengerEmail">Email</label>
+                <input type="email" id="passengerEmail" placeholder="Enter email" required />
+              </div>
+
+              <div class="input-group">
+                <label for="passengerPhone">Phone</label>
+                <input type="tel" id="passengerPhone" placeholder="Enter phone number" required />
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label for="paymentMethod">Payment Method</label>
+              <select id="paymentMethod" required>
+                <option value="">Choose payment method</option>
+                <option value="UPI">UPI</option>
+                <option value="Card">Debit / Credit Card</option>
+                <option value="Net Banking">Net Banking</option>
+                <option value="Wallet">Wallet</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary pay-btn">Pay Now</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="payment-right">
+        <div class="payment-card summary-card">
+          <h2>Booking Summary</h2>
+          <div id="bookingSummary"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="js/storage.js"></script>
+  <script src="js/payment.js"></script>
+</body>
+</html>

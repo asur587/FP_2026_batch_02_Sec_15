@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | TravelSmart</title>
+
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/pages/auth.css" />
+</head>
+<body class="auth-body">
+
+  <div class="auth-bg">
+    <div class="auth-layer stars"></div>
+    <div class="auth-layer clouds"></div>
+    <div class="auth-layer glow glow-1"></div>
+    <div class="auth-layer glow glow-2"></div>
+  </div>
+
+  <header class="auth-topbar">
+    <a href="index.html" class="auth-logo">TravelSmart</a>
+    <a href="signup.html" class="btn btn-outline">Create Account</a>
+  </header>
+
+  <main class="auth-main">
+    <section class="auth-card glass-card reveal active">
+      <div class="auth-left">
+        <p class="auth-badge">Welcome back</p>
+        <h1>Log in to continue your journey</h1>
+        <p class="auth-text">
+          Access your saved trips, booking history, travel plans, and premium deals.
+        </p>
+
+        <ul class="auth-features">
+          <li>Flights, trains, buses and hotels</li>
+          <li>Saved bookings and recent trips</li>
+          <li>Exclusive offer access</li>
+        </ul>
+      </div>
+
+      <div class="auth-right">
+        <h2>Login</h2>
+        <form id="loginForm" novalidate>
+          <div class="input-group">
+            <label for="loginEmail">Gmail</label>
+            <input type="email" id="loginEmail" placeholder="Enter your Gmail" />
+            <small class="error-text" id="loginEmailError"></small>
+          </div>
+
+          <div class="input-group">
+            <label for="loginPassword">Password</label>
+            <div class="password-wrap">
+              <input type="password" id="loginPassword" placeholder="Enter your password" />
+              <button type="button" class="toggle-password" data-target="loginPassword">Show</button>
+            </div>
+            <small class="error-text" id="loginPasswordError"></small>
+          </div>
+
+          <div class="auth-options">
+            <label class="remember-box">
+              <input type="checkbox" id="rememberMe" />
+              <span>Remember me</span>
+            </label>
+            <a href="#" id="guestLoginLink">Use demo login</a>
+          </div>
+
+          <button type="submit" class="btn btn-primary auth-submit">Login</button>
+
+          <p class="auth-switch">
+            Don’t have an account?
+            <a href="signup.html">Sign up</a>
+          </p>
+
+          <p class="success-text" id="loginSuccess"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/storage.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flights | TravelSmart</title>
+
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/animations.css" />
+  <link rel="stylesheet" href="../css/pages/booking.css" />
+  <style>
+  /* INDEX-ONLY NAVBAR FIX */
+  #navbar{
+    position: fixed;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(1280px, calc(100% - 28px));
+    z-index: 5000;
+    border-radius: 22px;
+    background: rgba(8, 18, 36, 0.78);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255,255,255,0.10);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.28);
+    transition: all 0.3s ease;
+  }
+
+  #navbar.scrolled{
+    top: 8px;
+    background: rgba(8, 18, 36, 0.92);
+  }
+
+  #navbar .nav-content{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 78px;
+    gap: 20px;
+    padding: 0 20px;
+  }
+
+  #navbar .logo-wrap{
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  #navbar .logo-icon{
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(94,231,255,0.18), rgba(127,92,255,0.22));
+    border: 1px solid rgba(255,255,255,0.12);
+    color: var(--primary);
+  }
+
+  #navbar .logo-text{
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #fff;
+  }
+
+  #navbar .main-nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    flex: 1;
+  }
+
+  #navbar .nav-links{
+  display:flex;
+  align-items:center;
+  gap:4px;
+  flex-wrap:nowrap;
+}
+
+#navbar .nav-link{
+  padding:8px 10px;
+  font-size:0.95rem;
+}
+
+#navbar .nav-content{
+  gap:12px;
+  padding:0 14px;
+}
+
+#navbar .nav-actions{
+  gap:8px;
+}
+
+#navbar .nav-btn{
+  min-width:auto;
+  padding:10px 16px;
+  font-size:0.95rem;
+}
+
+  #navbar .nav-links li{
+    list-style: none;
+  }
+
+  #navbar .nav-link{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 14px;
+    border-radius: 999px;
+    text-decoration: none;
+    color: rgba(255,255,255,0.84);
+    font-weight: 600;
+    transition: all 0.25s ease;
+  }
+
+  #navbar .nav-link:hover{
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+    transform: translateY(-1px);
+  }
+
+  #navbar .nav-link.active{
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: #07111f;
+    font-weight: 800;
+  }
+
+  #navbar .nav-actions{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
+  }
+
+  #navbar .nav-btn{
+    min-width: 105px;
+  }
+
+  #navbar .nav-toggle{
+    display: none;
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.10);
+    cursor: pointer;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  #navbar .nav-toggle span{
+    width: 22px;
+    height: 2px;
+    background: #fff;
+    border-radius: 999px;
+    display: block;
+  }
+
+  /* keep hero below floating navbar */
+  .hero{
+    padding-top: 140px;
+  }
+
+  @media (max-width: 1080px){
+    #navbar .nav-toggle{
+      display: flex;
+    }
+
+    #navbar .main-nav{
+      position: absolute;
+      top: calc(100% + 10px);
+      left: 0;
+      right: 0;
+      display: none;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 16px;
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(8,18,36,0.96);
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.3);
+    }
+
+    #navbar .main-nav.show{
+      display: flex;
+    }
+
+    #navbar .nav-links{
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    #navbar .nav-link{
+      width: 100%;
+      justify-content: flex-start;
+      padding: 14px 16px;
+    }
+
+    #navbar .nav-actions{
+      flex-direction: column;
+      width: 100%;
+      margin-left: 0;
+    }
+
+    #navbar .nav-actions .btn{
+      width: 100%;
+    }
+  }
+</style>
+
+</head>
+<body class="booking-page">
+
+  <header class="navbar" id="navbar">
+  <div class="container nav-content">
+    <a href="../index.html" class="logo logo-wrap">
+      <span class="logo-icon">✈</span>
+      <span class="logo-text">TravelSmart</span>
+    </a>
+
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav class="main-nav" id="mainNav">
+      <ul class="nav-links">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="flights.html" class="nav-link active">Flights</a></li>
+        <li><a href="trains.html" class="nav-link">Trains</a></li>
+        <li><a href="buses.html" class="nav-link">Buses</a></li>
+        <li><a href="hotels.html" class="nav-link">Hotels</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="../login.html" class="btn btn-outline nav-btn">Login</a>
+        <a href="../signup.html" class="btn btn-primary nav-btn">Sign Up</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+  <section class="booking-hero">
+    <div class="container booking-hero-content">
+      <h1>Search premium flight options</h1>
+      <p>
+        Compare sample airline routes, fare types, baggage details,
+        timings and seat availability in a smooth travel-booking layout.
+      </p>
+
+      <div class="booking-filter-bar">
+        <input type="text" id="flightFrom" placeholder="From city" />
+        <input type="text" id="flightTo" placeholder="To city" />
+        <input type="date" id="flightDate" />
+        <select id="flightClass">
+          <option value="all">All Classes</option>
+          <option value="Economy">Economy</option>
+          <option value="Business">Business</option>
+        </select>
+        <button class="btn btn-primary" id="filterFlightsBtn">Search Flights</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="results-section">
+    <div class="container">
+      <div class="results-topbar">
+        <div>
+          <h2>Available Flights</h2>
+          <p>Sample routes and airline cards inspired by modern booking apps.</p>
+        </div>
+      </div>
+
+      <div class="results-layout" id="flightsResults"></div>
+
+      <div class="booking-info-grid">
+        <div class="info-box">
+          <h3>Fare types</h3>
+          <p>Economy, business and flexible fare style options can be expanded later.</p>
+        </div>
+        <div class="info-box">
+          <h3>Seat selection</h3>
+          <p>Next phase will connect these cards to seat maps and booking flow.</p>
+        </div>
+        <div class="info-box">
+          <h3>Travel policies</h3>
+          <p>Baggage, refund and boarding rules can be shown dynamically per route.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="seat-modal" id="seatModal">
+  <div class="seat-modal-content">
+    <button class="seat-close" id="seatCloseBtn" type="button">×</button>
+
+    <h2 id="seatModalTitle">Seat Selection</h2>
+    <p id="seatModalSubtitle"></p>
+
+    <div class="seat-legend">
+      <span><i class="legend available-box"></i> Available</span>
+      <span><i class="legend selected-box"></i> Selected</span>
+      <span><i class="legend unavailable-box"></i> Unavailable</span>
+    </div>
+
+    <div class="seat-grid" id="seatGrid"></div>
+
+    <div class="seat-summary">
+      <p><strong>Selected:</strong> <span id="selectedSeatText">No seats selected</span></p>
+      <p><strong>Total Fare:</strong> <span id="totalFareText">₹0</span></p>
+    </div>
+
+    <button class="btn btn-primary seat-continue-btn" id="continueSeatBtn" type="button" disabled>
+      Continue to Payment
+    </button>
+  </div> 
+</div>
+    
+<script src="../js/navbar.js"></script>
+<script src="../data/sample-data.js"></script>
+<script src="../js/bookings/flights.js"></script>
+<script src="../js/storage.js"></script>
+<script src="../js/booking-actions.js"></script>
+<script src="../data/sample-data.js"></script>
+<script src="../js/bookings/flights.js"></script>
+</body>
+</html>

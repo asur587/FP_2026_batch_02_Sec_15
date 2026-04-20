@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up | TravelSmart</title>
+
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/pages/auth.css" />
+</head>
+<body class="auth-body">
+
+  <div class="auth-bg">
+    <div class="auth-layer stars"></div>
+    <div class="auth-layer clouds"></div>
+    <div class="auth-layer glow glow-1"></div>
+    <div class="auth-layer glow glow-2"></div>
+  </div>
+
+  <header class="auth-topbar">
+    <a href="index.html" class="auth-logo">TravelSmart</a>
+    <a href="login.html" class="btn btn-outline">Login</a>
+  </header>
+
+  <main class="auth-main">
+    <section class="auth-card glass-card reveal active">
+      <div class="auth-left">
+        <p class="auth-badge">Create your account</p>
+        <h1>Start planning smarter journeys</h1>
+        <p class="auth-text">
+          Join TravelSmart and save routes, bookings, stays, discounts and trip plans.
+        </p>
+
+        <ul class="auth-features">
+          <li>Manage all travel in one place</li>
+          <li>Track bookings with ease</li>
+          <li>Use smart trip planning tools</li>
+        </ul>
+      </div>
+
+      <div class="auth-right">
+        <h2>Sign Up</h2>
+        <form id="signupForm" novalidate>
+          <div class="input-group">
+            <label for="signupName">Full Name</label>
+            <input type="text" id="signupName" placeholder="Enter your full name" />
+            <small class="error-text" id="signupNameError"></small>
+          </div>
+
+          <div class="input-group">
+            <label for="signupEmail">Gmail</label>
+            <input type="email" id="signupEmail" placeholder="Enter your Gmail" />
+            <small class="error-text" id="signupEmailError"></small>
+          </div>
+
+          <div class="input-group">
+            <label for="signupPassword">Password</label>
+            <div class="password-wrap">
+              <input type="password" id="signupPassword" placeholder="Create a password" />
+              <button type="button" class="toggle-password" data-target="signupPassword">Show</button>
+            </div>
+            <small class="error-text" id="signupPasswordError"></small>
+          </div>
+
+          <div class="input-group">
+            <label for="signupConfirmPassword">Confirm Password</label>
+            <div class="password-wrap">
+              <input type="password" id="signupConfirmPassword" placeholder="Re-enter password" />
+              <button type="button" class="toggle-password" data-target="signupConfirmPassword">Show</button>
+            </div>
+            <small class="error-text" id="signupConfirmPasswordError"></small>
+          </div>
+
+          <button type="submit" class="btn btn-primary auth-submit">Create Account</button>
+
+          <p class="auth-switch">
+            Already have an account?
+            <a href="login.html">Login</a>
+          </p>
+
+          <p class="success-text" id="signupSuccess"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/storage.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>
